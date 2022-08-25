@@ -14,7 +14,7 @@ var db = map[string]string{
 }
 
 func TestGetter(t *testing.T) {
-	var f Getter = GeeterFunc(func(key string) ([]byte, error) {
+	var f Getter = GetterFunc(func(key string) ([]byte, error) {
 		return []byte(key), nil
 	})
 	expect := []byte("key")
@@ -25,7 +25,7 @@ func TestGetter(t *testing.T) {
 
 func TestGet(t *testing.T) {
 	loadCounts := make(map[string]int, len(db))
-	gee := NewGroup("scores", 2<<10, GeeterFunc(
+	gee := NewGroup("scores", 2<<10, GetterFunc(
 		func(key string) ([]byte, error) {
 			log.Println("[SlowDB] search key", key)
 			if v, ok := db[key]; ok {
